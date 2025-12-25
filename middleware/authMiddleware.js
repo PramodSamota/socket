@@ -1,4 +1,3 @@
-// middleware/authMiddleware.js
 import jwt from "jsonwebtoken";
 
 const JWT_SECRET =
@@ -7,8 +6,8 @@ const JWT_SECRET =
 // Verify JWT token for REST API routes
 export const verifyToken = (req, res, next) => {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-
+    const token = req.headers.authorization.split(" ")[1] || req.cookies?.token;
+    // console.log("token", token);
     if (!token) {
       return res.status(401).json({ error: "No token provided" });
     }
